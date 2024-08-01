@@ -1,18 +1,21 @@
 import pygame
 from paddle import *
+from ball import *
 
 class Game():
     
     def __init__(self):
         pygame.init()
-        self.window = pygame.display.set_mode( (1200, 600) )
+        self.window = pygame.display.set_mode( (736, 414) )
         pygame.display.set_caption("Block Breaker")
-        self.bg = pygame.image.load("images/bg.jpeg")
+        self.bg = pygame.image.load("images/bg7.jpg")
         self.paddle_img = pygame.image.load("images/paddle.png")
         self.paddle_img = pygame.transform.scale(self.paddle_img, (self.paddle_img.get_width() * 2, self.paddle_img.get_height() * 2))
-        
+        self.ball_img = pygame.image.load("images/ball.png")
+        self.ball_img = pygame.transform.scale(self.ball_img, (self.ball_img.get_width() * 1, self.ball_img.get_height( ) * 1))
+        self.ball = Ball(350, 400, self.window, self.ball_img)
         #paddle
-        self.paddle = Paddle(350, 450, self.window, self.paddle_img)
+        self.paddle = Paddle(350, 378, self.window, self.paddle_img)
         
         #time
         self.clock = pygame.time.Clock()
@@ -30,9 +33,14 @@ class Game():
                     running = False
             
             self.paddle.draw(self.delta_time)
+            self.ball.draw(self.delta_time, self.paddle)
+            self.check_collision()
             pygame.display.update()
                     
         pygame.quit()
+    def check_collision(self):
+        if self.ball.ball_rect.colliderect(self.paddle.paddle_rect):
+            self.ball.is_collide = True
         
         
 if __name__ == "__main__":

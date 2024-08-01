@@ -7,9 +7,10 @@ class Paddle:
         self.image = image
         self.paddle_rect = self.image.get_rect(topleft=(x, y))
         self.velocity = 0
-        self.acceleration = 200
-        self.max_velocity = 400
-        self.friction = 0.9
+        self.acceleration = 1200
+        self.max_velocity = 1200
+        self.friction = 1
+
         
     def draw(self, delta_time):
         self.window.blit(self.image, (self.paddle_rect.x, self.paddle_rect.y))
