@@ -7,8 +7,8 @@ class Ball:
         self.window = window
         self.image = image
         self.ball_rect = self.image.get_rect(x = x, y = y)
-        self.angle = math.pi / 3
-        self.velocity = 400
+        self.angle = math.pi / -3
+        self.velocity = 100
         self.velocity_x = self.velocity * math.cos(self.angle)
         self.velocity_y = self.velocity * math.sin(self.angle)
         self.is_collide = False
@@ -26,15 +26,19 @@ class Ball:
             self.velocity_y *= -1
             self.is_collide = False
 
-        if self.ball_rect.y > self.window.get_height() - self.ball_rect.h:
-            self.ball_rect.y = self.window.get_height() - self.ball_rect.h
-            self.velocity_y *= -1
         if self.ball_rect.y < 0:
             self.ball_rect.y = 0
             self.velocity_y *= -1
+
         if self.ball_rect.x > self.window.get_width() - self.ball_rect.w:
             self.ball_rect.x = self.window.get_width() - self.ball_rect.w
             self.velocity_x *= -1
         if self.ball_rect.x < 0:
             self.ball_rect.x = 0
             self.velocity_x *= -1
+    def collide_block(self):
+        self.velocity_y *= -1
+
+    def increase_velo(self):
+        self.velocity_x *= 1.06
+        self.velocity_y *= 1.06
